@@ -1,5 +1,4 @@
 rm(list = ls())
-# Q2
 library(slam)
 library(tm)
 library(SnowballC)
@@ -9,7 +8,6 @@ cname <- file.path(".", "text")
 docs <-  Corpus(DirSource((cname)))
 print(summary(docs))
 
-# Q3
 # transformations (convert Hyphen into space) 
 toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "-")
@@ -28,7 +26,6 @@ dtm <- as.data.frame(as.matrix(dtm))
 dtm
 write.csv(dtm, "dtm.csv")  # generate csv file for document term matrix
 
-# Q4
 library(lsa)
 library(proxy)
 # Calculate the cosine distance
@@ -55,7 +52,6 @@ colnames(table) <- c("AI", "LGBT", "NaturalDisaster")
 table
 
 
-# Q5
 library(igraph)
 dtmd <- as.matrix(dtmd)
 dtmsx <- as.matrix((dtmd > 0) + 0)  #  binary matrix of dtm
@@ -82,7 +78,6 @@ central
 cfg <- cluster_fast_greedy(as.undirected(graph))   # identify communities
 plot(cfg, as.undirected(graph), vertex.label = V(graph)$role, main = "Fast Greedy")
 
-# Q6
 dtmt <- as.matrix(dtm)
 dtmsx <- as.matrix((dtmt > 0) + 0)     # create binary matrix of dtm
 ByTokenMatrix <- t(dtmt) %*% dtmt      # binary matrix * its transpose
@@ -109,7 +104,6 @@ cfg <- cluster_fast_greedy(as.undirected(graph))   # identify communities
 plot(cfg, as.undirected(graph), vertex.label = V(graph)$role, main = "Fast Greedy")
 
 
-# Q7
 dtmb <- as.data.frame(dtm)
 dtmb$ABS <- rownames(dtmb)        # add row names
 dtm_bipar <- data.frame()
