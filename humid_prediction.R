@@ -7,7 +7,6 @@ L <- L[sample(nrow(L), 10, replace = FALSE),] # sample 10 locations
 WAUS <- WAUS[(WAUS$Location %in% L),]
 WAUS <- WAUS[sample(nrow(WAUS), 2000, replace = FALSE),] # sample 2000 rows
 
-# Q1
 # more humd than today
 more_humid <- sum(WAUS$MHT == 1, na.rm = TRUE)
 # less humid than today
@@ -18,7 +17,6 @@ summary(WAUS)
 library(skimr)
 skim(WAUS)
 
-# Q2
 # if WindSpeed9am == 0 and WindDir9am == NA, change WindDir9am to 'no wind'
 WAUS$WindDir9am[WAUS$WindSpeed9am == 0 & is.na(WAUS$WindDir9am)] <- "no_wind"
 # if WindSpeed3pm == 0 and WindDir3pm == NA, change WindDir3pm to 'no wind'
@@ -36,13 +34,12 @@ WAUS <- WAUS[,c(-6,-7)]
 WAUS <- na.omit(WAUS)
 
 
-# Q3
 set.seed(32201303)
 train.row = sample(1:nrow(WAUS), 0.7*nrow(WAUS))
 WAUS.train = WAUS[train.row,]
 WAUS.test = WAUS[-train.row,]
 
-# Q4
+
 # Decision Tree
 library(tree)
 t.fit <- tree(MHT~ ., data=WAUS.train)
@@ -66,7 +63,6 @@ boost.model <- boosting(MHT ~ ., data=WAUS.train)
 library(randomForest)
 rf.model <- randomForest(MHT ~ .,data=WAUS.train)
 
-# Q5
 # Decision Tree
 tpredict <- predict(t.fit, WAUS.test, type = "class")
 confusion_matrix_dt <- table(actual = WAUS.test$MHT, predicted = tpredict)
@@ -102,7 +98,7 @@ rownames(confusion_matrix_rf) <- c("less humid tomorrow", "more humid tomorrow")
 colnames(confusion_matrix_rf) <- c("less humid tomorrow", "more humid tomorrow")
 confusion_matrix_rf
 
-# Q6
+
 library(ROCR)
 # Decision Tree
 tpredict <- predict(t.fit, WAUS.test, type = "vector")
@@ -145,7 +141,6 @@ print(as.numeric(cauc@y.values))
 legend(0.0, 1.0, legend=c("Decision Tree", "Naïve Bayes", "Bagging", "Boosting", "Random Forest"),
        col=c("orange", "blueviolet", "red", "green", "blue"), lty = 1:1, cex = 0.8,)
 
-# Q8
 # importance for bagging model
 bag.model$importance
 # importance for boosting
@@ -155,7 +150,6 @@ rf.model$importance
 # importance for decision tree
 summary(t.fit)
 
-# Q9
 # decision tree with WindGustDir, WindDir9am and WindDir3pm
 t_fit_simple <- tree(MHT~ WindGustDir + WindDir9am + WindDir3pm, data=WAUS.train)
 t_fit_simple
@@ -183,7 +177,6 @@ abline(0,1)
 cauc = performance(dtRocpred, "auc")
 print(as.numeric(cauc@y.values))
 
-# Q10
 #  best random forest 
 repeat_cv <- trainControl(method = 'repeatedcv', number = 10, repeats = 4)
 best_rf <- train(MHT ~ ., data = WAUS.train, method = 'rf', trControl = repeat_cv, metric = 'Accuracy')
@@ -202,7 +195,6 @@ cauc = performance(dtRocpred, "auc")
 print(as.numeric(cauc@y.values))
 
 
-# Q11
 # pre-processing
 library(neuralnet)
 set.seed(32201303)
@@ -249,7 +241,6 @@ library(pROC)
 dtRocpred <- roc(wtest$MHT, waus.pred$net.result[,2])
 dtRocpred$auc
 
-# Q12
 # pre-processing 
 library(xgboost)
 # encode chr type
