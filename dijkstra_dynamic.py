@@ -1,24 +1,3 @@
-"""
-FIT2004 Assignment1
-Name: Shosuke Asano
-Student ID: 32201303
-"""
-
-"""
-Part 1
-""" 
-
-"""
-    <<CITATION>>
-    Title: FIT2004 course notes
-    Author: FIT2004 teaching team, Daniel Anderson
-    
-    Title: FIT1008 week12 Slides for the lesson on "Heap 1" and Slides for the lesson on "Heap 2"
-    Author: Prepared by Maria Garcia de la Banda, Updated by Brendon Taylor
-    
-    Title: FIT1008 week12 Slides for the lesson on "Heap 2"
-    Author: Prepared by Maria Garcia de la Banda, Updated by Brendon Taylor
-"""
 class MinHeap():
     """
     Heap such that the root node has minimum value in the array.
