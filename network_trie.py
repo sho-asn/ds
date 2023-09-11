@@ -1,13 +1,6 @@
 """
-FIT2004 Assignment2
-Name: Shosuke Asano
-Student ID: 32201303
-"""
-
-"""
 Part 1
 """ 
-
 class ResidualNetwork:
     """
     The ResidualNetwork class converts the problem of fast backups into a residual network with connections and data centers. 
